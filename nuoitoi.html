@@ -1,0 +1,437 @@
+<html class="light" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Nuôi Châu - Mã QR Ủng Hộ</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ee8c2b",
+              "background-light": "#f8f7f6",
+              "background-dark": "#221910",
+            },
+            fontFamily: {
+              display: ["Plus Jakarta Sans", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "2rem",
+              xl: "3rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      .material-symbols-outlined.filled {
+        font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      /* Animated gradient background */
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      .gradient-header {
+        background: linear-gradient(135deg, #ee8c2b, #f4b56f);
+        background-size: 220% 220%;
+        animation: gradientBG 14s ease infinite;
+      }
+      @keyframes qrPulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 14px 28px rgba(238, 140, 43, 0.15);
+        }
+        50% {
+          transform: scale(1.02);
+          box-shadow: 0 18px 32px rgba(238, 140, 43, 0.22);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 14px 28px rgba(238, 140, 43, 0.15);
+        }
+      }
+      .qr-animate {
+        animation: qrPulse 2.6s infinite ease-in-out;
+      }
+      .qr-container {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px;
+        margin: 6px 0;
+        border-radius: 1.5rem;
+        background: linear-gradient(135deg, #fff7ec, #ffffff);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      }
+      .qr-image {
+        max-width: 260px;
+        border-radius: 1rem;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-200 dark:bg-gray-900 flex justify-center min-h-screen py-0 sm:py-8 transition-colors duration-300"
+  >
+    <div
+      class="w-full sm:max-w-[428px] bg-[linear-gradient(160deg,#f3e8ff_0%,#ffffff_40%,#fff7ed_100%)] dark:bg-[#221910] dark:bg-none shadow-2xl sm:rounded-[2.5rem] overflow-hidden flex flex-col relative h-screen sm:h-[880px] border-[8px] border-transparent sm:border-gray-800 dark:sm:border-gray-950 box-content"
+    >
+      <header
+        class="flex items-center justify-between px-6 py-5 sticky top-0 z-20 gradient-header text-white shadow-lg"
+      >
+        <button
+          id="back-btn"
+          class="group flex items-center justify-center rounded-full size-10 bg-white/30 hover:bg-white/40 transition-colors backdrop-blur-md shadow-sm border border-white/50"
+        >
+          <span class="material-symbols-outlined text-white">arrow_back</span>
+        </button>
+        <div class="flex flex-col items-center">
+          <span class="text-[12px] font-semibold uppercase tracking-widest"
+            >Ủng hộ</span
+          >
+          <h1 class="text-lg font-black leading-tight">Mã QR Vietcombank</h1>
+        </div>
+        <div
+          class="rounded-full size-10 bg-white/30 flex items-center justify-center border border-white/50"
+        >
+          <span class="material-symbols-outlined text-white">volunteer_activism</span>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto no-scrollbar pb-28">
+        <section class="px-6 pt-6 pb-4">
+          <div
+            class="p-5 rounded-3xl bg-white dark:bg-[#2c2219] shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-[#f0e6dd] dark:border-white/5"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex flex-col gap-1">
+                <span
+                  class="text-xs font-bold text-[#9a734c] dark:text-[#ccb096] uppercase tracking-widest"
+                  >Chủ tài khoản</span
+                >
+                <span
+                  id="account-name"
+                  class="text-lg font-black text-[#1b140d] dark:text-white"
+                  >Nuôi Châu</span
+                >
+                <span
+                  class="text-sm text-[#9a734c] dark:text-[#ccb096] flex items-center gap-1"
+                  ><span class="material-symbols-outlined text-[16px]"
+                    >account_balance</span
+                  >Vietcombank · STK <span id="account-no">1061689130</span></span
+                >
+              </div>
+              <button
+                id="copy-info"
+                class="px-3 py-1.5 rounded-full bg-primary text-white text-xs font-bold shadow-sm hover:bg-[#d97b20] transition-colors"
+              >
+                Sao chép STK
+              </button>
+            </div>
+
+            <div class="w-full flex flex-col items-center gap-3">
+              <div class="qr-container">
+                <img
+                  id="vietqr-img"
+                  alt="QR Vietcombank"
+                  class="qr-image qr-animate"
+                  src=""
+                />
+              </div>
+              <div
+                class="px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center gap-2"
+              >
+                <span class="material-symbols-outlined text-[18px]">qr_code_2</span>
+                <span id="amount-label">Tùy chọn</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="px-6 pb-6">
+          <h2
+            class="text-[#1b140d] dark:text-white text-[20px] font-bold leading-tight mb-4 flex items-center gap-2"
+          >
+            Chọn nhanh
+            <span class="text-primary material-symbols-outlined filled text-sm"
+              >favorite</span
+            >
+          </h2>
+          <div class="grid grid-cols-2 gap-4">
+            <label class="group relative cursor-pointer">
+              <input
+                class="peer sr-only"
+                name="amount-tier"
+                type="radio"
+                data-amount="10000"
+              />
+              <div
+                class="h-full flex flex-col p-4 rounded-3xl bg-white dark:bg-[#2c2219] border-2 border-transparent peer-checked:border-primary peer-checked:bg-[#fff8f2] dark:peer-checked:bg-primary/10 transition-all shadow-sm"
+              >
+                <div
+                  class="size-10 mb-3 rounded-2xl bg-[#fcf4ec] flex items-center justify-center text-primary"
+                >
+                  <span class="material-symbols-outlined">favorite</span>
+                </div>
+                <p class="text-xl font-bold text-[#1b140d] dark:text-white">
+                  10k
+                </p>
+                <p class="text-xs text-[#9a734c]">Chia sẻ yêu thương</p>
+                <div
+                  class="absolute top-4 right-4 text-primary opacity-0 peer-checked:opacity-100"
+                >
+                  <span class="material-symbols-outlined filled">check_circle</span>
+                </div>
+              </div>
+            </label>
+
+            <label class="group relative cursor-pointer">
+              <input
+                class="peer sr-only"
+                name="amount-tier"
+                type="radio"
+                data-amount="20000"
+              />
+              <div
+                class="h-full flex flex-col p-4 rounded-3xl bg-white dark:bg-[#2c2219] border-2 border-transparent peer-checked:border-primary peer-checked:bg-[#fff8f2] dark:peer-checked:bg-primary/10 transition-all shadow-sm"
+              >
+                <div
+                  class="size-10 mb-3 rounded-2xl bg-[#fcf4ec] flex items-center justify-center text-primary"
+                >
+                  <span class="material-symbols-outlined">emoji_food_beverage</span>
+                </div>
+                <p class="text-xl font-bold text-[#1b140d] dark:text-white">
+                  20k
+                </p>
+                <p class="text-xs text-[#9a734c]">Ly sữa ấm áp</p>
+                <div
+                  class="absolute top-4 right-4 text-primary opacity-0 peer-checked:opacity-100"
+                >
+                  <span class="material-symbols-outlined filled">check_circle</span>
+                </div>
+              </div>
+            </label>
+
+            <label class="group relative cursor-pointer">
+              <input
+                class="peer sr-only"
+                name="amount-tier"
+                type="radio"
+                data-amount="50000"
+              />
+              <div
+                class="h-full flex flex-col p-4 rounded-3xl bg-white dark:bg-[#2c2219] border-2 border-transparent peer-checked:border-primary peer-checked:bg-[#fff8f2] dark:peer-checked:bg-primary/10 transition-all shadow-sm"
+              >
+                <div
+                  class="size-10 mb-3 rounded-2xl bg-[#fcf4ec] flex items-center justify-center text-primary"
+                >
+                  <span class="material-symbols-outlined">lunch_dining</span>
+                </div>
+                <p class="text-xl font-bold text-[#1b140d] dark:text-white">
+                  50k
+                </p>
+                <p class="text-xs text-[#9a734c]">Bữa trưa dinh dưỡng</p>
+                <div
+                  class="absolute top-4 right-4 text-primary opacity-0 peer-checked:opacity-100"
+                >
+                  <span class="material-symbols-outlined filled">check_circle</span>
+                </div>
+              </div>
+            </label>
+
+            <label class="group relative cursor-pointer">
+              <input
+                class="peer sr-only"
+                name="amount-tier"
+                type="radio"
+                data-amount="100000"
+                checked
+              />
+              <div
+                class="relative h-full flex flex-col p-4 rounded-3xl bg-white dark:bg-[#2c2219] border-2 border-transparent peer-checked:border-primary peer-checked:bg-[#fff8f2] dark:peer-checked:bg-primary/10 transition-all shadow-sm overflow-hidden"
+              >
+                <div
+                  class="absolute top-0 right-0 bg-primary text-white text-[9px] font-bold px-3 py-1.5 rounded-bl-2xl"
+                >
+                  PHỔ BIẾN
+                </div>
+                <div
+                  class="size-10 mb-3 rounded-2xl bg-[#fcf4ec] flex items-center justify-center text-primary"
+                >
+                  <span class="material-symbols-outlined">calendar_month</span>
+                </div>
+                <p class="text-xl font-bold text-[#1b140d] dark:text-white">
+                  100k
+                </p>
+                <p class="text-xs text-[#9a734c]">Một ngày ăn đủ</p>
+                <div
+                  class="absolute bottom-4 right-4 text-primary opacity-0 peer-checked:opacity-100"
+                >
+                  <span class="material-symbols-outlined filled">check_circle</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <section class="px-6 pb-8">
+          <div
+            class="flex items-center gap-4 p-5 rounded-2xl bg-white dark:bg-[#2c2219] shadow-sm border border-dashed border-[#d6cec7] dark:border-white/20 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all"
+          >
+            <div class="bg-[#fcf4ec] dark:bg-primary/20 p-2 rounded-xl text-primary">
+              <span class="material-symbols-outlined">edit</span>
+            </div>
+            <div class="flex-1">
+              <label
+                class="block text-xs font-bold text-[#9a734c] dark:text-[#ccb096] mb-0.5"
+                for="custom-amount"
+                >Số tiền khác</label
+              >
+              <input
+                class="w-full bg-transparent border-none p-0 text-lg font-bold placeholder:text-gray-300 dark:placeholder:text-gray-600 focus:ring-0 text-[#1b140d] dark:text-white leading-tight"
+                id="custom-amount"
+                placeholder="Nhập số tiền..."
+                type="number"
+                min="1000"
+              />
+            </div>
+            <span class="text-[#9a734c] dark:text-[#ccb096] font-bold text-sm"
+              >VND</span
+            >
+          </div>
+        </section>
+      </main>
+
+      <div
+        class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white via-white/95 via-80% to-transparent dark:from-[#221910] dark:via-[#221910]/95 pt-16 z-30"
+      >
+        <div class="flex gap-3">
+          <button
+            id="open-qr"
+            class="size-14 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/10 text-primary dark:text-white flex items-center justify-center shadow-lg hover:bg-gray-50 dark:hover:bg-white/20 transition-colors active:scale-90 duration-200"
+          >
+            <span class="material-symbols-outlined">open_in_new</span>
+          </button>
+          <button
+            id="share-btn"
+            class="flex-1 bg-[#1b140d] dark:bg-white hover:bg-black dark:hover:bg-gray-200 active:scale-[0.98] transition-all duration-200 text-white dark:text-[#1b140d] text-lg font-bold h-14 rounded-full shadow-[0_8px_25px_rgba(0,0,0,0.15)] flex items-center justify-center gap-2 group"
+          >
+            <span>Quét / Lưu mã</span>
+            <span
+              class="material-symbols-outlined text-[24px] group-hover:translate-x-1 transition-transform filled"
+              >qr_code_2</span
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const BANK_ID = "vcb";
+        const ACCOUNT_NO = "1061689130";
+        const TEMPLATE = "compact2";
+        const ACCOUNT_NAME = "Nuoi Chau";
+        const ADD_INFO = "Ung ho Nuoi Toi";
+
+        const qrImg = document.getElementById("vietqr-img");
+        const amountLabel = document.getElementById("amount-label");
+        const customAmountInput = document.getElementById("custom-amount");
+        const amountRadios = document.querySelectorAll('input[name="amount-tier"]');
+
+        const formatVND = (value) =>
+          new Intl.NumberFormat("vi-VN").format(Number(value || 0)) + "đ";
+
+        const buildVietQrLink = (amount) => {
+          const base = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-${TEMPLATE}.png`;
+          const params = new URLSearchParams({ addInfo: ADD_INFO });
+          if (ACCOUNT_NAME) params.set("accountName", ACCOUNT_NAME);
+          if (amount && Number(amount) > 0) {
+            params.set("amount", Math.round(Number(amount)));
+          }
+          return `${base}?${params.toString()}`;
+        };
+
+        const updateQr = () => {
+          let amount = null;
+          const selected = document.querySelector(
+            'input[name="amount-tier"]:checked'
+          );
+          if (selected && selected.dataset.amount) {
+            amount = selected.dataset.amount;
+          }
+          if (customAmountInput.value && Number(customAmountInput.value) >= 1000) {
+            amount = customAmountInput.value;
+          }
+          const qrLink = buildVietQrLink(amount);
+          qrImg.src = qrLink;
+          amountLabel.textContent = amount ? formatVND(amount) : "Tùy chọn";
+          return qrLink;
+        };
+
+        amountRadios.forEach((radio) =>
+          radio.addEventListener("change", () => {
+            customAmountInput.value = "";
+            updateQr();
+          })
+        );
+
+        customAmountInput.addEventListener("input", () => {
+          amountRadios.forEach((r) => (r.checked = false));
+          updateQr();
+        });
+
+        document.getElementById("back-btn").addEventListener("click", () => {
+          window.location.href = "/index.html";
+        });
+
+        document.getElementById("open-qr").addEventListener("click", () => {
+          window.open(qrImg.src, "_blank");
+        });
+
+        document.getElementById("share-btn").addEventListener("click", () => {
+          window.open(qrImg.src, "_blank");
+        });
+
+        document.getElementById("copy-info").addEventListener("click", async () => {
+          const text = `${ACCOUNT_NO} - ${ADD_INFO}`;
+          try {
+            await navigator.clipboard.writeText(text);
+            alert("Đã sao chép STK + nội dung");
+          } catch (e) {
+            alert("Không thể sao chép, vui lòng thử lại.");
+          }
+        });
+
+        // init
+        updateQr();
+      });
+    </script>
+  </body>
+</html>
